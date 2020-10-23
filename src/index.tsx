@@ -1,11 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import ExamplePage from "./ExamplePage";
+import App from "./App";
 import RootComponent from "./RootComponent";
 
 ReactDOM.render(
   <RootComponent>
-    <ExamplePage />
+    <App />
   </RootComponent>,
   document.querySelector("#root")
 );

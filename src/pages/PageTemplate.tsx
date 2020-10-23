@@ -5,20 +5,21 @@ import {
   FixedTopBar,
   FixedMiddleBodyWithVerticalScroll,
   FixedBottomProminentButton,
-  TopbarBackButton
-} from "./layout-components";
+  TopbarBackButton,
+} from "../components/layout-components";
 import _ from "lodash";
 
-const ExamplePage = () => {
+const PageTemplate: React.FC = ({ children }) => {
   const topbarLeftButton: TopbarBackButton = {
     type: "back",
-    onClick: () => console.log("Clicked back")
+    onClick: () => console.log("Clicked back"),
   };
+
   return (
     <PageContainer>
       <FixedTopBar title="Example Page Title" leftButton={topbarLeftButton} />
       <FixedMiddleBodyWithVerticalScroll>
-        {/* Body goes here */}
+        {children}
       </FixedMiddleBodyWithVerticalScroll>
       <FixedBottomProminentButton
         title="Test / Debug"
@@ -28,4 +29,4 @@ const ExamplePage = () => {
   );
 };
 
-export default ExamplePage
+export default PageTemplate;

@@ -1,4 +1,3 @@
-import { Typography, Button, Box, IconButton } from "@material-ui/core";
 import React from "react";
 import {
   PageContainer,
@@ -7,23 +6,42 @@ import {
   FixedBottomProminentButton,
   TopbarBackButton,
 } from "../components/layout-components";
-import _ from "lodash";
 
-const PageTemplate: React.FC = ({ children }) => {
+const PageTemplate: React.FC<{
+  pageTitle?: string;
+  showBackBtn?: boolean;
+  onBackBtnClick?: () => void | Promise<void>;
+  prominentBtnTitle?: string;
+  onProminentBtnClick?: () => void | Promise<void>;
+}> = ({
+  children,
+  pageTitle,
+  showBackBtn,
+  onBackBtnClick,
+  prominentBtnTitle,
+  onProminentBtnClick,
+}) => {
+  onBackBtnClick = onBackBtnClick === undefined ? () => {} : onBackBtnClick;
+  onProminentBtnClick =
+    onProminentBtnClick === undefined ? () => {} : onProminentBtnClick;
+
   const topbarLeftButton: TopbarBackButton = {
     type: "back",
-    onClick: () => console.log("Clicked back"),
+    onClick: onBackBtnClick,
   };
 
   return (
     <PageContainer>
-      <FixedTopBar title="Example Page Title" leftButton={topbarLeftButton} />
+      <FixedTopBar
+        title={pageTitle || "Example Page Title"}
+        leftButton={showBackBtn ? topbarLeftButton : undefined}
+      />
       <FixedMiddleBodyWithVerticalScroll>
         {children}
       </FixedMiddleBodyWithVerticalScroll>
       <FixedBottomProminentButton
-        title="Test / Debug"
-        onClick={() => console.log("TODO - whatever you want to test/debug")}
+        title={prominentBtnTitle || "Test / Debug"}
+        onClick={onProminentBtnClick}
       />
     </PageContainer>
   );

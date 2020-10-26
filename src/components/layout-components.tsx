@@ -24,7 +24,7 @@ export const FixedTopBar: React.FunctionComponent<TopBarProps> = (props) => {
       style={{
         paddingLeft: 15,
         paddingRight: 15,
-        top: 0,
+        top: 50,
         right: 0,
         bottom: "auto",
         left: 0,
@@ -96,7 +96,7 @@ export const FixedMiddleBodyWithVerticalScroll: React.FunctionComponent<{}> = (
       style={{
         paddingLeft: 15,
         paddingRight: 15,
-        top: 70,
+        top: 100,
         right: 0,
         bottom: 65,
         left: 0,

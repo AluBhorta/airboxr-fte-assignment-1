@@ -7,8 +7,10 @@ const SelectSourcePage: React.FC = () => {
     <>
       <PageTemplate pageTitle="Select Source" showBackBtn>
         <div>
-          Below is a list of sources you have connected. Please choose the data
-          source that you'd like to import data from.
+          <p>
+            Below is a list of sources you have connected. Please choose the
+            data source that you'd like to import data from.
+          </p>
         </div>
 
         <ul>

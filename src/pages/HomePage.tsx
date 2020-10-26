@@ -5,7 +5,7 @@ import PageTemplate from "./PageTemplate";
 const HomePage: React.FC = () => {
   return (
     <>
-      <PageTemplate pageTitle="Home" >
+      <PageTemplate pageTitle="Home">
         <div>
           <h1>What would you like to do today?</h1>
           <p>
@@ -14,9 +14,14 @@ const HomePage: React.FC = () => {
           </p>
         </div>
 
-        <ButtonGroup fullWidth color="secondary">
-          <Button href="/select-source" >Import Data</Button>
-          <Button href="/select-source" >Lookup Data</Button>
+        <ButtonGroup fullWidth >
+          <Button variant="outlined" href="/select-source" color="primary">
+            Import Data
+          </Button>
+
+          <Button variant="outlined" href="/select-source" color="secondary">
+            Lookup Data
+          </Button>
         </ButtonGroup>
       </PageTemplate>
     </>

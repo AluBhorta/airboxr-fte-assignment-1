@@ -11,6 +11,7 @@ const PageTemplate: React.FC<{
   pageTitle?: string;
   showBackBtn?: boolean;
   onBackBtnClick?: () => void | Promise<void>;
+  showProminentBtn?: boolean;
   prominentBtnTitle?: string;
   onProminentBtnClick?: () => void | Promise<void>;
 }> = ({
@@ -18,12 +19,18 @@ const PageTemplate: React.FC<{
   pageTitle,
   showBackBtn,
   onBackBtnClick,
+  showProminentBtn,
   prominentBtnTitle,
   onProminentBtnClick,
 }) => {
-  onBackBtnClick = onBackBtnClick === undefined ? () => {} : onBackBtnClick;
+  onBackBtnClick =
+    onBackBtnClick === undefined
+      ? () => console.log("Clicked Back")
+      : onBackBtnClick;
   onProminentBtnClick =
-    onProminentBtnClick === undefined ? () => {} : onProminentBtnClick;
+    onProminentBtnClick === undefined
+      ? () => console.log("Clicked Prominent")
+      : onProminentBtnClick;
 
   const topbarLeftButton: TopbarBackButton = {
     type: "back",
@@ -31,19 +38,23 @@ const PageTemplate: React.FC<{
   };
 
   return (
-    <PageContainer>
-      <FixedTopBar
-        title={pageTitle || "Example Page Title"}
-        leftButton={showBackBtn ? topbarLeftButton : undefined}
-      />
-      <FixedMiddleBodyWithVerticalScroll>
-        {children}
-      </FixedMiddleBodyWithVerticalScroll>
-      <FixedBottomProminentButton
-        title={prominentBtnTitle || "Test / Debug"}
-        onClick={onProminentBtnClick}
-      />
-    </PageContainer>
+    <>
+      <PageContainer>
+        <FixedTopBar
+          title={pageTitle || "Example Page Title"}
+          leftButton={showBackBtn ? topbarLeftButton : undefined}
+        />
+        <FixedMiddleBodyWithVerticalScroll>
+          {children}
+        </FixedMiddleBodyWithVerticalScroll>
+        {showProminentBtn && (
+          <FixedBottomProminentButton
+            title={prominentBtnTitle || "Test / Debug"}
+            onClick={onProminentBtnClick}
+          />
+        )}
+      </PageContainer>
+    </>
   );
 };
 

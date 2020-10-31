@@ -15,6 +15,12 @@ const AppRoutes: React.FC = () => {
           <SelectSourcePage />
         </Route>
         <Route path="/select-table" exact>
+          <Redirect to="/select-source" />
+        </Route>
+        <Route path="/select-table/:source" exact>
+          <SelectTablePage />
+        </Route>
+        <Route path="/select-table/:source/:table" exact>
           <SelectTablePage />
         </Route>
 

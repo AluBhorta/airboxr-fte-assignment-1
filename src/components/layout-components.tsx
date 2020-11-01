@@ -55,6 +55,7 @@ interface BottomButtonProps {
   processing?: boolean;
   onClick: () => void | Promise<void>;
   title: string;
+  disabled: boolean;
 }
 
 export const FixedBottomProminentButton: React.FunctionComponent<BottomButtonProps> = (
@@ -80,7 +81,11 @@ export const FixedBottomProminentButton: React.FunctionComponent<BottomButtonPro
       {props.processing || false ? (
         <CircularProgress />
       ) : (
-        <Button style={{ height: 50, width: "100%" }} onClick={props.onClick}>
+        <Button
+          disabled={props.disabled}
+          style={{ height: 50, width: "100%" }}
+          onClick={props.onClick}
+        >
           {props.title}
         </Button>
       )}

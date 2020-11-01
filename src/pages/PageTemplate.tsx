@@ -1,32 +1,34 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
+
 import {
   PageContainer,
   FixedTopBar,
   FixedMiddleBodyWithVerticalScroll,
   FixedBottomProminentButton,
-  TopbarBackButton,
+  TopbarBackButton
 } from "../components/layout-components";
 
 const PageTemplate: React.FC<{
   pageTitle?: string;
   showBackBtn?: boolean;
-  onBackBtnClick?: () => void | Promise<void>;
   showProminentBtn?: boolean;
   prominentBtnTitle?: string;
+  disableProminentBtn: boolean;
   onProminentBtnClick?: () => void | Promise<void>;
 }> = ({
   children,
   pageTitle,
   showBackBtn,
-  onBackBtnClick,
   showProminentBtn,
   prominentBtnTitle,
-  onProminentBtnClick,
+  disableProminentBtn,
+  onProminentBtnClick
 }) => {
-  onBackBtnClick =
-    onBackBtnClick === undefined
-      ? () => console.log("Clicked Back")
-      : onBackBtnClick;
+  const history = useHistory();
+
+  const onBackBtnClick = () => history.goBack();
+
   onProminentBtnClick =
     onProminentBtnClick === undefined
       ? () => console.log("Clicked Prominent")
@@ -34,7 +36,7 @@ const PageTemplate: React.FC<{
 
   const topbarLeftButton: TopbarBackButton = {
     type: "back",
-    onClick: onBackBtnClick,
+    onClick: onBackBtnClick
   };
 
   return (
@@ -49,7 +51,8 @@ const PageTemplate: React.FC<{
         </FixedMiddleBodyWithVerticalScroll>
         {showProminentBtn && (
           <FixedBottomProminentButton
-            title={prominentBtnTitle || "Test / Debug"}
+            disabled={disableProminentBtn}
+            title={prominentBtnTitle || "Next"}
             onClick={onProminentBtnClick}
           />
         )}

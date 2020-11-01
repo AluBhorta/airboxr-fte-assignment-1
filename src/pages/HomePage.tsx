@@ -1,5 +1,6 @@
 import { Button, ButtonGroup } from "@material-ui/core";
 import React from "react";
+import { Link } from "react-router-dom";
 import PageTemplate from "./PageTemplate";
 
 const HomePage: React.FC = () => {
@@ -14,15 +15,19 @@ const HomePage: React.FC = () => {
           </p>
         </div>
 
-        <ButtonGroup fullWidth >
-          <Button variant="outlined" href="/select-source" color="primary">
+        <Link className="styleless-link" to="/select-source">
+          <Button fullWidth variant="outlined" color="primary">
             Import Data
           </Button>
+        </Link>
 
-          <Button variant="outlined" href="/select-source" color="secondary">
+        <br />
+
+        <Link className="styleless-link" to="/select-source">
+          <Button fullWidth variant="outlined" color="secondary">
             Lookup Data
           </Button>
-        </ButtonGroup>
+        </Link>
       </PageTemplate>
     </>
   );

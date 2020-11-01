@@ -1,15 +1,18 @@
 import { AppBar, Button, IconButton, Toolbar } from "@material-ui/core";
 import { Chat, Home } from "@material-ui/icons";
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Header: React.FC = () => {
   return (
     <div>
       <AppBar position="fixed" color="default">
         <Toolbar>
-          <IconButton edge="start" color="inherit">
-            <Home />
-          </IconButton>
+          <Link className="styleless-link" to="/">
+            <IconButton edge="start" color="inherit">
+              <Home />
+            </IconButton>
+          </Link>
 
           <span style={{ flex: 1 }}></span>
 

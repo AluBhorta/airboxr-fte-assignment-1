@@ -1,10 +1,6 @@
 import React from "react";
 import { useContext } from "react";
-import { Redirect, useParams } from "react-router-dom";
-
-import { AppContext } from "../AppState";
-import PageTemplate from "./PageTemplate";
-import { DataStore, DataSourceTable } from "../models";
+import { Redirect, useParams, useHistory } from "react-router-dom";
 import {
   FormControl,
   FormLabel,
@@ -13,18 +9,18 @@ import {
   Radio
 } from "@material-ui/core";
 
+import { AppContext } from "../AppState";
+import PageTemplate from "./PageTemplate";
+import { DataStore } from "../models";
+
 const SelectTablePage: React.FC = () => {
   const { dataStores } = useContext(AppContext);
   const { source, table } = useParams<{
     source?: string;
     table?: string;
   }>();
-
+  const history = useHistory();
   const [selectedTitle, setSelectedTitle] = React.useState("");
-
-  // if (table) {
-  // } else {
-  // }
 
   const store: DataStore | undefined = dataStores.find(
     (_store) => _store.name === source
@@ -34,16 +30,39 @@ const SelectTablePage: React.FC = () => {
     return <Redirect to="/select-source" />;
   }
 
-  const uniqueTitles = store.tables
-    .map((tbl) => tbl.title.split("||")[0])
+  const primaryTables = store.tables.map((tbl) => ({
+    ...tbl,
+    title: tbl.title.split("||")[0]
+  }));
+
+  const indentedPrimaryTables = primaryTables.filter((tbl) => tbl.isIndented);
+
+  const isIndented = indentedPrimaryTables.find(
+    (tbl) => tbl.title === selectedTitle
+  );
+
+  let uniqueTitles = primaryTables
+    .map((tbl) => tbl.title)
     .filter((t, i, titles) => titles.indexOf(t) === i);
+
+  if (table) {
+    uniqueTitles = store.tables
+      .map((tbl) => ({ ...tbl, title: tbl.title.split("||") }))
+      .filter((tbl) => tbl.title[0] === table)
+      .map((tbl) => tbl.title[1]);
+  }
 
   const handleChange = (event) => {
     setSelectedTitle(event.target.value);
   };
 
   const handleOnNext = (e) => {
-    console.log(`TODO - Go to SelectColumnsPage - of ${selectedTitle}`);
+    if (!table && selectedTitle && isIndented) {
+      setSelectedTitle("");
+      history.push(`/select-table/${source}/${selectedTitle}`);
+    } else {
+      console.log(`TODO - Go to SelectColumnsPage - of ${selectedTitle}`);
+    }
   };
 
   return (
@@ -68,10 +87,10 @@ const SelectTablePage: React.FC = () => {
         <br />
 
         <FormControl component="fieldset">
-          <FormLabel component="legend">Gender</FormLabel>
+          <FormLabel component="legend">Tables</FormLabel>
           <RadioGroup
-            aria-label="gender"
-            name="gender1"
+            aria-label="table"
+            name="table1"
             value={selectedTitle}
             onChange={handleChange}
           >

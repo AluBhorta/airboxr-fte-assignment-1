@@ -8,7 +8,6 @@ export class ApiClient {
 
   public async getDataStores(): Promise<DataStore[]> {
     const token = await this.getAuthToken();
-    console.log(token);
 
     const sources = await fetch(this.dataStoresUrl, {
       method: "GET",

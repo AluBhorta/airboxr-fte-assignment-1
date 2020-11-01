@@ -1,9 +1,9 @@
-import React from "react";
-import { useContext } from "react";
+import React, { useContext } from "react";
 import { Redirect, useParams, useHistory } from "react-router-dom";
 import {
   FormControl,
   FormLabel,
+  TextField,
   RadioGroup,
   FormControlLabel,
   Radio
@@ -21,6 +21,7 @@ const SelectTablePage: React.FC = () => {
   }>();
   const history = useHistory();
   const [selectedTitle, setSelectedTitle] = React.useState("");
+  const [searchText, setSearchText] = React.useState("");
 
   const store: DataStore | undefined = dataStores.find(
     (_store) => _store.name === source
@@ -52,6 +53,14 @@ const SelectTablePage: React.FC = () => {
       .map((tbl) => tbl.title[1]);
   }
 
+  const filteredTitles =
+    searchText === ""
+      ? uniqueTitles
+      : uniqueTitles.filter(
+          (title) =>
+            title.toLowerCase().indexOf(searchText.toLowerCase()) !== -1
+        );
+
   const handleChange = (event) => {
     setSelectedTitle(event.target.value);
   };
@@ -59,6 +68,7 @@ const SelectTablePage: React.FC = () => {
   const handleOnNext = (e) => {
     if (!table && selectedTitle && isIndented) {
       setSelectedTitle("");
+      setSearchText("");
       history.push(`/select-table/${source}/${selectedTitle}`);
     } else {
       console.log(`TODO - Go to SelectColumnsPage - of ${selectedTitle}`);
@@ -82,8 +92,13 @@ const SelectTablePage: React.FC = () => {
         </div>
 
         <div>
-          <input type="text" name="filter" placeholder="Filter..." />
+          <TextField
+            label="Filter..."
+            value={searchText}
+            onChange={(e) => setSearchText(e.target.value)}
+          />
         </div>
+
         <br />
 
         <FormControl component="fieldset">
@@ -94,7 +109,7 @@ const SelectTablePage: React.FC = () => {
             value={selectedTitle}
             onChange={handleChange}
           >
-            {uniqueTitles.map((title, i) => (
+            {filteredTitles.map((title, i) => (
               <FormControlLabel
                 key={i}
                 value={title}

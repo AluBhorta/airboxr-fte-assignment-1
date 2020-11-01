@@ -21,6 +21,7 @@ const Header: React.FC = () => {
             color="secondary"
             startIcon={<Chat />}
             style={{ borderRadius: "4px" }}
+            onClick={() => console.log("TODO - Implement Chat")}
           >
             Chat
           </Button>

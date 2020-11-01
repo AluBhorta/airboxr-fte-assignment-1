@@ -3,7 +3,8 @@ import {
   IconButton,
   Typography,
   Button,
-  CircularProgress
+  CircularProgress,
+  Container
 } from "@material-ui/core";
 import ArrowBack from "@material-ui/icons/ArrowBack";
 import React from "react";
@@ -111,7 +112,7 @@ export const FixedMiddleBodyWithVerticalScroll: React.FunctionComponent<{}> = (
       display="flex"
       flexDirection="column"
     >
-      {props.children}
+      <Container maxWidth="sm">{props.children}</Container>
     </Box>
   );
 };

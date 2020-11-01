@@ -76,7 +76,7 @@ const SelectTablePage: React.FC = () => {
       >
         <div>
           <p>
-            {source} {table} has the following tables ready for import. Please
+            {source} {table} - has the following tables ready for import. Please
             select the table you would like to import.
           </p>
         </div>
